@@ -1,7 +1,7 @@
 # Gradebook-Project-Part-One
 Project for CPSC 2810, Fall 2021 - Jenna Hofseth <br />
 Developed using IntelliJ Community 2021 <br />
-
+◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦ <br />
 This is a gradebook creator/editor program which prompts the user for the size and details of the initial gradebook, and then gives the user a menu to edit or display items in said gradebook. <br />
 
 The gradebook is limited to a size of 20, and has 3 different types of grades the user can add--quizzes, discussions, and programs. <br />
