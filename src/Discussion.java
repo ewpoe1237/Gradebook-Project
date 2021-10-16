@@ -42,6 +42,11 @@ public class Discussion implements AssignmentInterface{
         return dueDate;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
     public void setReadingContent(String contentInput) {
         readingContent = contentInput;
     }

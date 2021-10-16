@@ -39,6 +39,11 @@ public class Program implements AssignmentInterface{
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public char scoreToLetter(int inputScore) {
         if(inputScore >= 90) return 'A';
         else if(inputScore >= 80) return 'B';
@@ -65,6 +70,10 @@ public class Program implements AssignmentInterface{
     @Override
     public void setDueDate(LocalDate input) {
         dueDate = input;
+    }
+
+    public void setConcept(String input) {
+        concept = input;
     }
 
     @Override

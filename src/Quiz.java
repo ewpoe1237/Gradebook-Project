@@ -46,6 +46,11 @@ public class Quiz implements AssignmentInterface {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public void setScore(int inputScore) {
         score = inputScore;
     }
