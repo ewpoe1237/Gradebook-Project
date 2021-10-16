@@ -13,7 +13,7 @@ Grades also have common field variables used in each type: <br />
 > Score - the grade's score as an integer number <br />
 > Letter - the character (letter grade) that corresponds to the number grade. This is automatically generated when a score is input; the user does not have to manually input it. <br />
 > Name - the name of the assignment <br />
-> Due Date (MM/DD/YYYY) - the due date of the assignment <br />
+> Due Date (YYYY/MM/DD) - the due date of the assignment <br />
 
 Using the menu, users can: <br />
 > Add or delete grades to the program <br />
