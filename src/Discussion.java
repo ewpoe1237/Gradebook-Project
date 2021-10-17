@@ -1,5 +1,11 @@
 import java.time.LocalDate;
 
+/*
+Jenna Hofseth
+CPSC 2810 - Fall 2021
+Gradebook Project
+ */
+
 public class Discussion implements AssignmentInterface{
     private String readingContent;
     private int score;

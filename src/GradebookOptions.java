@@ -1,9 +1,18 @@
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/*
+Jenna Hofseth
+CPSC 2810 - Fall 2021
+Gradebook Project
+ */
+
 public class GradebookOptions {
-    static char addGradePrompt() {
+    static char addGradePrompt(int gradeIndex, int bookSize) throws GradebookFullException {
         System.out.println("\nYou chose to ADD A GRADE to your gradebook.");
+        //since gradeIndex is the index we will next input a grade to, gradebook will be full if the gradeIndex is equal to bookSize (aka array capacity) + 1
+        if(gradeIndex == (bookSize + 1)) throw new GradebookFullException();
+
         char inputChar = 'z';
         Scanner sc = new Scanner(System.in);
 
@@ -15,7 +24,9 @@ public class GradebookOptions {
 
         while(inputChar != 'Q' && inputChar != 'P' && inputChar != 'D' && inputChar != 'X') {
             while (true) {
+
                 try {
+                    //by using .charAt(0), typing "quiz", "program", or "discussion" are also valid as inputs
                     inputChar = Character.toUpperCase(sc.nextLine().charAt((0)));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Please enter a valid character.");
@@ -32,6 +43,13 @@ public class GradebookOptions {
     }
 
     static void initializeCommonVariables(AssignmentInterface obj) {
+        /*
+            method that will initialize the score (automatically converted to letter, which is initialized without need for input),
+            name of assignment, and duedate by prompting the user for these values.
+
+            the user confirms their input using 'Y' or re-enters it by entering a different character during confirmation.
+         */
+
         Scanner sc = new Scanner(System.in);
         String line = "";
 
@@ -110,6 +128,7 @@ public class GradebookOptions {
                 continue;
             }
 
+            //if input is out of range, default it to max/min. we ask the user to confirm their input anyways so this is fine
             if(inputYear <= 0) {
                 System.out.println("Input year was less than or equal to 0. Defaulting to 1.");
                 inputYear = 1;
@@ -205,32 +224,21 @@ public class GradebookOptions {
 
     static int sumValues(AssignmentInterface[] gradebook, char inputChoice, int gradeIndex) {
         int sum = 0;
-        boolean emptySpace = false;
 
         switch(inputChoice) {
             case '4': //this is for the avg of scores in gradebook
-                emptySpace = false;
 
-                for(int i = 0; i < gradeIndex && !emptySpace; i++) {
-                    try {
-                        sum += gradebook[i].getScore();
-                    } catch(NullPointerException e) {
-                        emptySpace = true;
-                    }
+                for(int i = 0; i < gradeIndex; i++) {
+                    sum += gradebook[i].getScore();
                 }
 
                 break;
             case '6': //this is for the avg num of questions in quizzes
                 int quizCount = 0;
                 for(int i = 0; i < gradeIndex; i++) {
-                    try {
-                        if (gradebook[i] instanceof Quiz) {
-                            quizCount++;
-                            sum += ((Quiz) gradebook[i]).getQuestionCount();
-                        }
-                    } catch(NullPointerException e) {
-                        System.out.println("Your gradebook is empty!");
-                        break;
+                    if (gradebook[i] instanceof Quiz) {
+                        quizCount++;
+                        sum += ((Quiz) gradebook[i]).getQuestionCount();
                     }
                 }
 
@@ -246,6 +254,7 @@ public class GradebookOptions {
 
     static Discussion addDiscussion() {
         System.out.println("\nYou chose to add a DISCUSSION to your gradebook.");
+
         Discussion myDiscussion = new Discussion();
         GradebookOptions.initializeCommonVariables(myDiscussion);
         char selection = 'Z';
@@ -276,6 +285,7 @@ public class GradebookOptions {
 
     static Quiz addQuiz() {
         System.out.println("\nYou chose to add a QUIZ to your gradebook.");
+
         Quiz myQuiz = new Quiz();
         int questionCount = 0;
         char selection = 'Z';
@@ -315,6 +325,7 @@ public class GradebookOptions {
 
     static Program addProgram() {
         System.out.println("\nYou chose to add a PROGRAM to your gradebook.");
+
         Program myProgram = new Program();
         GradebookOptions.initializeCommonVariables(myProgram);
         char selection = 'Z';
@@ -342,8 +353,10 @@ public class GradebookOptions {
         return myProgram;
     }
 
-    static int removeGrades(AssignmentInterface[] gradebook, int gradeIndex, int bookSize) {
+    static int removeGrades(AssignmentInterface[] gradebook, int gradeIndex, int bookSize) throws GradebookEmptyException, InvalidGradeException {
         System.out.println("\nYou chose to REMOVE A GRADE from your gradebook.");
+        if(gradeIndex == 0) throw new GradebookEmptyException(); //if the gradebook is empty, we will throw a GradebookEmptyException
+
         System.out.println("Please enter the name of the assignment you would like to remove.");
         Scanner sc = new Scanner(System.in);
         String assignmentName = sc.nextLine();
@@ -351,31 +364,30 @@ public class GradebookOptions {
         boolean targetFound = false;
 
         for(int i = 0; i < gradeIndex && !targetFound; i++) {
-            try {
-                if (gradebook[i].getName().equals(assignmentName)) {
-                    targetIndex = i;
-                    targetFound = true;
-                }
-            } catch(NullPointerException e) {
-                targetIndex = -1;
+            if (gradebook[i].getName().equals(assignmentName)) {
+                targetIndex = i;
                 targetFound = true;
-                System.out.println("The grade was not found within the gradebook.");
             }
         }
 
-        if(targetFound && targetIndex == -1) return -1;
+        if(targetIndex == -1) { //meaning we looped through and never found anything w that assignment name
+            throw new InvalidGradeException();
+        }
 
-        //scooting everything down by an index to eliminate null points in array
+        //scooting everything to the right spot to eliminate null points in array
         if(targetFound && targetIndex == bookSize - 1) {
+            //if the target index is just the last index, we can simply make temp our gradebook but initialize one less assignment than what gradebook originally had
             AssignmentInterface[] temp = new AssignmentInterface[bookSize];
             for(int i = 0; i < targetIndex; i++) {
                 temp[i] = gradebook[i];
             }
 
+            //make gradebook our temp after our temp is initialized as the gradebook with one less assignment
             gradebook = temp;
             gradeIndex--;
             System.out.println("Grade successfully removed.");
         } else if(targetIndex >= 0 && targetIndex < bookSize - 1 && targetFound) {
+            //if the target index is not the last index we will have to scoot everything down after targetIndex so the target assignment goes into the void
             for(int i = targetIndex; i < bookSize - 1; i++) {
                 gradebook[i] = gradebook[i+1];
             }
@@ -387,94 +399,90 @@ public class GradebookOptions {
         return gradeIndex;
     }
 
-    static void printGrades(AssignmentInterface[] gradebook, int gradeIndex) {
+    static void printGrades(AssignmentInterface[] gradebook, int gradeIndex) throws GradebookEmptyException {
         System.out.println("\nYou chose to PRINT ALL GRADES in gradebook.");
         int numCounter = -1;
 
+        if(gradeIndex == 0) { //check to see whether gradebook is empty
+            throw new GradebookEmptyException();
+        }
+
         for(int i = 0; i < gradeIndex; i++) {
             numCounter = i+1;
-            try {
-                System.out.println("(" + numCounter + ") " + gradebook[i].toString());
-            } catch(NullPointerException e) {
-                System.out.println("Your gradebook is empty!");
-            }
+            System.out.println("(" + numCounter + ") " + gradebook[i].toString());
         }
+
     }
 
-    static void printGradeAvg(AssignmentInterface[] gradebook, int gradeIndex) {
+    static void printGradeAvg(AssignmentInterface[] gradebook, int gradeIndex) throws GradebookEmptyException {
         System.out.println("\nYou chose to PRINT AVERAGE OF ALL GRADES in gradebook.");
+        if(gradeIndex == 0) throw new GradebookEmptyException();
 
         int sum = sumValues(gradebook,'4', gradeIndex);
-        double avg = (double) (sum / gradeIndex);
+        double avg = (double) (sum / gradeIndex); //since gradeIndex is (index of last obj + 1), it is the length of the array
         System.out.println("The average of all grades is: " + avg);
     }
 
-    static void printQuestionAvg(AssignmentInterface[] gradebook, int gradeIndex) {
+    static void printQuestionAvg(AssignmentInterface[] gradebook, int gradeIndex) throws GradebookEmptyException {
         System.out.println("\nYou chose to PRINT AVERAGE NUMBER OF QUESTIONS in QUIZZES.");
+        if(gradeIndex == 0) throw new GradebookEmptyException();
+
         int sum = sumValues(gradebook,'6', gradeIndex);
         double avg = (double) (sum / gradeIndex);
         System.out.println("The average number of questions is: " + avg);
     }
 
-    static void printProgramConcepts(AssignmentInterface[] gradebook, int gradeIndex) {
+    static void printProgramConcepts(AssignmentInterface[] gradebook, int gradeIndex) throws GradebookEmptyException{
         System.out.println("\nYou chose to PRINT ALL CONCEPTS in PROGRAMS.");
+        if(gradeIndex == 0) throw new GradebookEmptyException();
+
         int programCount = 0;
 
         for(int i = 0; i < gradeIndex; i++) {
-
-            try {
-                if(gradebook[i] instanceof Program) {
-                    programCount++;
-                    System.out.println(gradebook[i].getName() + "'s concept: \n" + ((Program)gradebook[i]).getConcept());
-                }
-            } catch(NullPointerException e) {
-                System.out.println("Your gradebook is empty!");
-                return;
+            if(gradebook[i] instanceof Program) { //instanceof is pretty cool. i didn't know about that
+                programCount++;
+                System.out.println(gradebook[i].getName() + "'s concept: \n" + ((Program)gradebook[i]).getConcept());
             }
         }
 
         if(programCount == 0) System.out.println("You have no programs in your gradebook.");
     }
 
-    static void printAssociatedReadings(AssignmentInterface[] gradebook, int gradeIndex) {
+    static void printAssociatedReadings(AssignmentInterface[] gradebook, int gradeIndex) throws GradebookEmptyException {
         System.out.println("\nYou chose to PRINT ALL ASSOCIATED READINGS in DISCUSSIONS.");
+        if(gradeIndex == 0) throw new GradebookEmptyException();
+
         int discussionCount = 0;
 
         for(int i = 0; i < gradeIndex; i++) {
-
-            try {
-                if(gradebook[i] instanceof Discussion) {
-                    discussionCount++;
-                    System.out.println(gradebook[i].getName() + "'s associated reading: \n" + ((Discussion)gradebook[i]).getReadingContent());
-                }
-            } catch(NullPointerException e) {
-                System.out.println("Your gradebook is empty!");
-                return;
+            if(gradebook[i] instanceof Discussion) {
+                discussionCount++;
+                System.out.println(gradebook[i].getName() + "'s associated reading: \n" + ((Discussion)gradebook[i]).getReadingContent());
             }
         }
 
         if(discussionCount == 0) System.out.println("You have no discussions in your gradebook.");
     }
 
-    static void findMaxMin(AssignmentInterface[] gradebook, int gradeIndex) {
+    static void findMaxMin(AssignmentInterface[] gradebook, int gradeIndex) throws GradebookEmptyException {
         System.out.println("You chose to PRINT HIGHEST AND LOWEST GRADES in gradebook.");
+        if(gradeIndex == 0) throw new GradebookEmptyException();
+
         int lowest = gradebook[0].getScore(), highest = gradebook[0].getScore();
 
+        //finding the highest and lowest scores in the gradebook
         for(int i = 0; i < gradeIndex; i++) {
-            try {
-                if(gradebook[i].getScore() < lowest) {
-                    lowest = gradebook[i].getScore();
-                }
+            if(gradebook[i].getScore() < lowest) {
+                lowest = gradebook[i].getScore();
+            }
 
-                if(gradebook[i].getScore() > highest) {
-                    highest = gradebook[i].getScore();
-                }
-            } catch(NullPointerException e) {
-                System.out.println("Your gradebook is empty!");
-                return;
+            if(gradebook[i].getScore() > highest) {
+                highest = gradebook[i].getScore();
             }
         }
 
+        /* since there could be multiple different assignments with lowest/highest grades, iterate thru gradebook and print each one with
+           the same score as the lowest/highest scores we just found */
         System.out.println("Lowest grades:");
         for(int i = 0; i < gradeIndex; i++) {
             if(gradebook[i].getScore() == lowest) {

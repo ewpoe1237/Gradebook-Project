@@ -1,4 +1,9 @@
 import java.time.LocalDate;
+/*
+Jenna Hofseth
+CPSC 2810 - Fall 2021
+Gradebook Project
+ */
 
 public class Program implements AssignmentInterface{
     private String concept;
