@@ -43,6 +43,10 @@ public class Program implements AssignmentInterface{
         return name;
     }
 
+    public String getConcept() {
+        return concept;
+    }
+
     @Override
     public char scoreToLetter(int inputScore) {
         if(inputScore >= 90) return 'A';
@@ -78,6 +82,6 @@ public class Program implements AssignmentInterface{
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Score: " + score + ", Letter: " + letter + ", Due: " + dueDate.getMonth() + "/" + dueDate.getDayOfMonth() + "/" + dueDate.getYear() + ", Programming concept: " + concept;
+        return "Name: " + name + ", Score: " + score + ", Letter: " + letter + ", Due: " + dueDate.getMonth() + " " + dueDate.getDayOfMonth() + ", " + dueDate.getYear() + ", Programming concept: " + concept;
     }
 }

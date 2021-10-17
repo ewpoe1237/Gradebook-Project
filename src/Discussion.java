@@ -82,6 +82,6 @@ public class Discussion implements AssignmentInterface{
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Score: " + score + ", Letter: " + letter + ", Due: " + dueDate.getMonth() + "/" + dueDate.getDayOfMonth() + "/" + dueDate.getYear() + ", Reading content: " + readingContent;
+        return "Name: " + name + ", Score: " + score + ", Letter: " + letter + ", Due: " + dueDate.getMonth() + " " + dueDate.getDayOfMonth() + ", " + dueDate.getYear() + ", Reading content: " + readingContent;
     }
 }
