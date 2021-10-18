@@ -90,9 +90,12 @@ public class GradebookOptions {
                 continue;
             }
 
-            if(score < 0) {
+            if(score < 0) { //defaulting to the cap in the case of out-of-bounds
                 System.out.println("Score input was less than 0. Defaulting to 0.");
                 score = 0;
+            } else if(score > 250) {
+                System.out.println("Score input was greater than 250. Defaulting to 250.");
+                score = 250;
             }
 
             System.out.println("You entered the score as: " + score);
@@ -301,6 +304,11 @@ public class GradebookOptions {
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid integer number.");
                 continue;
+            }
+
+            if(questionCount <= 0) {
+                System.out.println("Question count was less than or equal to 0. Defaulting to 1.");
+                questionCount = 1;
             }
 
             System.out.println("You entered the question count as: " + questionCount);
