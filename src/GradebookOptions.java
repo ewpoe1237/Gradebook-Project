@@ -118,10 +118,12 @@ public class GradebookOptions {
 
         System.out.println("\nPlease enter the due date for the assignment.");
         int inputYear = 0, inputMonth = 0, inputDay = 0;
+        int currentYear = LocalDate.now().getYear();
+
         choice = 'Z';
 
         while(Character.toUpperCase(choice) != 'Y') {
-            System.out.println("\nEnter the year as an integer number (ex: '2021') greater than 0.");
+            System.out.println("\nEnter the year as an integer number (ex: '2021'), no earlier than 25 years before this year and no later than " + (currentYear + 100) + ".");
             line = sc.nextLine();
 
             try {
@@ -131,10 +133,12 @@ public class GradebookOptions {
                 continue;
             }
 
-            //if input is out of range, default it to max/min. we ask the user to confirm their input anyways so this is fine
-            if(inputYear <= 0) {
-                System.out.println("Input year was less than or equal to 0. Defaulting to 1.");
-                inputYear = 1;
+            if(inputYear < currentYear - 25) {
+                System.out.println("Input is more than 25 years earlier than the current year. Defaulting to " + currentYear + ".");
+                inputYear = currentYear;
+            } else if(inputYear > currentYear + 100) {
+                System.out.println("Input is more than 100 years in the future. Defaulting to  " + (currentYear + 100) + ".");
+                inputYear = currentYear + 100;
             }
 
             System.out.println("You entered the year as: " + inputYear);
