@@ -1,6 +1,7 @@
 import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -403,6 +404,7 @@ public class GradebookOptions {
         Scanner sc = new Scanner(System.in);
         String inputName;
         String directoryString = "GradeTextFiles/";
+        Path filePath;
 
         //ask for file name, avoid special characters
         //str = str.replaceAll("[^a-zA-Z0-9]", " ");
@@ -422,8 +424,21 @@ public class GradebookOptions {
             inputName.trim();
         }
 
-        inputName += ".txt";
-        Path filePath = Paths.get(directoryString, inputName);
+        if(!inputName.contains(".txt")) inputName += ".txt";
+
+        while(true) {
+            try {
+                filePath = Paths.get(directoryString, inputName);
+            } catch (InvalidPathException e) {
+                System.out.println("Please do not enter any characters that are not accepted in a file name.");
+                inputName = sc.nextLine();
+                inputName.replaceAll("[^a-zA-Z0-9]", "");
+                inputName.trim();
+                continue;
+            }
+
+            break;
+        }
 
         //check to make sure file does not already exist
         while(Files.exists(filePath)) {
@@ -432,8 +447,14 @@ public class GradebookOptions {
             inputName = sc.nextLine();
             inputName.replaceAll("[^a-zA-Z0-9]", "");
             inputName.trim();
+            if(!inputName.contains(".txt")) inputName += ".txt";
 
-            filePath = Paths.get(directoryString, inputName);
+            try {
+                filePath = Paths.get(directoryString, inputName);
+            } catch(InvalidPathException e) {
+                System.out.println("Please try again; do not enter any characters that are not accepted as a file name.");
+                continue;
+            }
         }
 
         //attempt creating file within directory
@@ -442,10 +463,14 @@ public class GradebookOptions {
                 Files.createFile(filePath);
             } catch (IOException e) {
                 System.out.println("IOException encountered. Please enter a valid file name and check for a valid directory.");
+                System.out.println("Enter \"X\" to quit.");
+
+                if(inputName.equalsIgnoreCase("X")) return;
 
                 inputName = sc.nextLine();
                 inputName.replaceAll("[^a-zA-Z0-9]", "");
                 inputName.trim();
+                if(!inputName.contains(".txt")) inputName += ".txt";
 
                 filePath = Paths.get(directoryString, inputName);
 
@@ -485,11 +510,12 @@ public class GradebookOptions {
 
         //ask for file name, avoid special characters
         //str = str.replaceAll("[^a-zA-Z0-9]", " ");
-        System.out.println("\nPlease enter the file name for the file you would like to load in from the GradeTextFiles folder.");
+        System.out.println("\nPlease enter the file name for the file you would like to load in from the GradeTextFiles folder. A .txt ending will be auto-appended to the file name.");
 
         inputName = sc.nextLine();
         inputName.replaceAll("[^a-zA-Z0-9]", "");
         inputName.trim();
+        if(!inputName.contains(".txt")) inputName += ".txt";
 
         //check to make sure file name is not blank
         while(inputName.equalsIgnoreCase("")) {
@@ -498,19 +524,39 @@ public class GradebookOptions {
             inputName = sc.nextLine();
             inputName.replaceAll("[^a-zA-Z0-9]", "");
             inputName.trim();
+            if(!inputName.contains(".txt")) inputName += ".txt";
         }
 
-        inputName += ".txt";
-        Path filePath = Paths.get(directoryString, inputName);
+        Path filePath;
+        while(true) {
+            try {
+                filePath = Paths.get(directoryString, inputName);
+            } catch (InvalidPathException e) {
+                System.out.println("Please try again; do not enter any characters that are not accepted in a file name.");
+                inputName = sc.nextLine();
+                inputName.replaceAll("[^a-zA-Z0-9]", "");
+                inputName.trim();
+
+                if(!inputName.contains(".txt")) inputName += ".txt";
+
+                continue;
+            }
+
+            break;
+        }
 
         //check to make sure file does not already exist
         while(Files.notExists(filePath)) {
             System.out.println("Please enter a file name that already exists.");
+            System.out.println("Enter \"X\" to quit.");
 
             inputName = sc.nextLine();
+            if(inputName.equalsIgnoreCase("X")) return;
+
             inputName.replaceAll("[^a-zA-Z0-9]", "");
             inputName.trim();
 
+            if(!inputName.contains(".txt")) inputName += ".txt";
             filePath = Paths.get(directoryString, inputName);
         }
 

@@ -15,8 +15,8 @@ public class Gradebook { //our main class
         //when first run, should prompt the user to initialize your gradebook
         //gradebook is an array of your interface
         //ask the user to initialize the size of the gradebook -- max 20 grades
-        System.out.println("•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦Gradebook Constructor Program•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
-        System.out.println("•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦Jenna Hofseth•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+        System.out.println("--------------------------Gradebook Constructor Program--------------------------");
+        System.out.println("----------------------------------Jenna Hofseth----------------------------------");
 
         System.out.println("Welcome to the Gradebook Constructor Program!");
         System.out.println("The gradebook is a record of assignments with score, due date, and name attributes.");
@@ -32,7 +32,7 @@ public class Gradebook { //our main class
 
         //once initialized, prompt the user w/ a menu w/ a few different options
         while(!choice.equalsIgnoreCase("X")) {
-            System.out.println("\n•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦Menu•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+            System.out.println("\n-----------------------------------Menu------------------------------------");
             wrongInput = false;
 
             while(choice.equalsIgnoreCase("next")) {
@@ -90,7 +90,7 @@ public class Gradebook { //our main class
                     //are adding and what the values (name, score, etc) of each grade is
                     //gradebookfullexception occurs if our gradebook doesn't have any more space in it according to its capacity (bookSize)
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     String assignmentType = "";
 
                     assignmentType = GradebookOptions.addGradePrompt().toUpperCase().trim();
@@ -112,7 +112,7 @@ public class Gradebook { //our main class
                     if(quit) break;
 
                     System.out.println("The assignment has been added to the gradebook!");
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "2":
                     //remove grades: removes the first instance of a certain grade
@@ -120,7 +120,7 @@ public class Gradebook { //our main class
                     //if the gradebook does not contain the grade the user is trying to remove,
                     //program should throw an InvalidGradeException
                     //no grades at all -> GradebookEmptyException
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     try {
                         GradebookOptions.removeGrades(gradebook);
@@ -129,12 +129,12 @@ public class Gradebook { //our main class
                         else System.out.println("There was no assignment with that name found within the gradebook.");
                     }
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "3":
                     //print grades: prints all in grade book, no specific formatting required
                     //should gradebook be empty -> GradebookEmptyException
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     try {
                         GradebookOptions.printGrades(gradebook);
@@ -142,12 +142,12 @@ public class Gradebook { //our main class
                         System.out.println("Your gradebook is empty!");
                     }
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "4":
                     //print average -> print avg of all grades in gradebook
                     //should gradebook be empty -> GradebookEmptyException
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     try {
                         GradebookOptions.printGradeAvg(gradebook);
@@ -155,13 +155,13 @@ public class Gradebook { //our main class
                         System.out.println("Your gradebook is empty!");
                     }
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "5":
                     //print highest/lowest score(s): print highest/lowest score in gradebook
                     //if only one grade, then that grade is highest and lowest
                     //empty -> GradebookEmptyException
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     try {
                         GradebookOptions.findMaxMin(gradebook);
@@ -169,13 +169,13 @@ public class Gradebook { //our main class
                         System.out.println("Your gradebook is empty!");
                     }
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "6":
                     //print quiz question avg: print avg # of ?s among all quizzes
                     //empty -> GradebookEmptyException
                     //assignments but no quizzes -> print that there are no quizzes yet
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     try {
                         GradebookOptions.printQuestionAvg(gradebook);
@@ -183,13 +183,13 @@ public class Gradebook { //our main class
                         System.out.println("Your gradebook is empty!");
                     }
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "7":
                     //print discussion associated readings: print all associated readings from discussions
                     //empty -> GradebookEmptyException
                     //assignments but no discussions -> print that there are no discussions yet
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     try {
                         GradebookOptions.printAssociatedReadings(gradebook);
@@ -197,13 +197,13 @@ public class Gradebook { //our main class
                         System.out.println("Your gradebook is empty!");
                     }
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "8":
                     //print program concepts: print all concepts covered from programs
                     //empty -> GradebookEmptyException
                     //assignments but no programs -> print that there are no programs yet
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     try {
                         GradebookOptions.printProgramConcepts(gradebook);
@@ -211,12 +211,12 @@ public class Gradebook { //our main class
                         System.out.println("Your gradebook is empty!");
                     }
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "9":
                     //print current gradebook content to file
                     //prompt user for text file name
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     try {
                         GradebookOptions.printToFile(gradebook);
@@ -224,40 +224,40 @@ public class Gradebook { //our main class
                         System.out.println("Your gradebook is empty!");
                     }
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "10":
                     //read gradebook content into gradebook from file
                     //prompt user for txt file name
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     GradebookOptions.readFromFile(gradebook);
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "11":
                     //add contents to sql db
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     GradebookOptions.addToSql(gradebook);
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "12":
                     //add sql database contents to current gradebook
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     GradebookOptions.loadFromSql(gradebook);
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 case "13":
                     //search sql db
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
 
                     GradebookOptions.searchDB();
 
-                    System.out.println("\n◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦•◦");
+                    System.out.println("\n◦--------------------------------------------------------------------------------");
                     break;
                 default:
                     wrongInput = true;
