@@ -1,0 +1,4 @@
+Quiz	quiz1	60	D	2021-12-06	14
+Quiz	quiz2	80	B	2025-03-04	30
+Program	program	80	B	2021-06-12	concept
+Discussion	discussion	88	B	2021-03-07	content

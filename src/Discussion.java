@@ -27,10 +27,40 @@ public class Discussion implements AssignmentInterface{
         this.name = name;
         this.dueDate = dueDate;
         letter = scoreToLetter(this.score);
+
+        checkValidInput();
     }
 
     public String getReadingContent() {
         return readingContent;
+    }
+
+    private void checkValidInput() {
+        int currentYear = LocalDate.now().getYear();
+
+        if(readingContent.trim().equalsIgnoreCase("")) {
+            System.out.println("Reading content should not be empty during declaration. Defaulting to \"Default Content\".");
+            readingContent = "Default Content";
+        }
+
+        if(score < 0) {
+            System.out.println("Score should not be less than zero during declaration. Defaulting to zero.");
+            score = 0;
+            letter = scoreToLetter(score);
+        }
+
+        if(name.trim().equalsIgnoreCase("")) {
+            System.out.println("Name should not be empty during declaration. Defaulting to \"Default Discussion\".");
+            name = "Default Discussion";
+        }
+
+        if(dueDate.getYear() < (currentYear - 25)) {
+            System.out.println("Year should not be earlier than 25 years before the current year during declaration. Defaulting to the current year (" + currentYear + ").");
+            dueDate = LocalDate.of(currentYear, dueDate.getMonth(), dueDate.getDayOfMonth());
+        } else if(dueDate.getYear() > (currentYear + 100)) {
+            System.out.println("Year should not be more than 100 years after the current year during declaration. Defaulting to the current year (" + currentYear + ").");
+            dueDate = LocalDate.of(currentYear, dueDate.getMonth(), dueDate.getDayOfMonth());
+        }
     }
 
     @Override
@@ -60,6 +90,7 @@ public class Discussion implements AssignmentInterface{
     @Override
     public void setScore(int inputScore) {
         score = inputScore;
+        letter = scoreToLetter(score);
     }
 
     @Override
